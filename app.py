@@ -39,14 +39,14 @@ def get_dish_recommendations(image_base64, additional_requirements):
     return response.choices[0].message.content
 
 def main():
-    st.title("🍳 Dish Recommendation App")
-    st.write("Upload a photo of your ingredients, and I'll suggest dishes you can prepare!")
+    st.title("🍳 Gợi ý món ăn")
+    st.write("Chụp hình nguyên liệu bạn có trong tủ lạnh và chúng tôi sẽ gợi ý 3 món ăn Việt Nam bạn có thể làm với chúng.")
 
     # Text input for additional requirements
     additional_requirements = st.text_area(
-        "Additional Requirements (Optional)",
-        placeholder="E.g., vegetarian, low-carb, spicy, quick to prepare, etc.",
-        help="Enter any dietary restrictions, preferences, or other requirements"
+        "Yêu cầu thêm",
+        placeholder="ví dụ: ăn chay, low-carb, ăn cay, món bắc, món nam, nhanh chóng",
+        help="Nhập thêm yêu cầu bổ sung cho món ăn (ví dụ: ăn chay, low-carb, ăn cay, món bắc, món nam, nhanh chóng, etc.)"
     )
 
     # File uploader
@@ -57,8 +57,8 @@ def main():
         st.image(uploaded_file, caption="Uploaded Ingredients", use_container_width=True)
         
         # Add a button to trigger the analysis
-        if st.button("Get Recommendations"):
-            with st.spinner("Analyzing your ingredients..."):
+        if st.button("Gợi ý cho tôi"):
+            with st.spinner("Đang phân tích hình ảnh của bạn..."):
                 # Convert image to base64
                 image_base64 = encode_image_to_base64(uploaded_file)
                 
@@ -67,7 +67,7 @@ def main():
                     recommendations = get_dish_recommendations(image_base64, additional_requirements)
                     
                     # Display recommendations
-                    st.subheader("📝 Recommended Dishes:")
+                    st.subheader("📝 Món ăn được gợi ý:")
                     st.write(recommendations)
                     
                 except Exception as e:
